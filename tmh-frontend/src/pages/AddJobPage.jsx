@@ -44,14 +44,14 @@ const AddJobPage = ({ addJobSubmit }) => {
       <div className='container m-auto max-w-2xl py-24'>
         <div className='bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0'>
           <form onSubmit={submitForm}>
-            <h2 className='text-3xl text-center font-semibold mb-6'>Add Job</h2>
+            <h2 className='text-3xl text-center font-semibold mb-6'>Schedule Appointment</h2>
 
             <div className='mb-4'>
               <label
                 htmlFor='type'
                 className='block text-gray-700 font-bold mb-2'
               >
-                Job Type
+                Care Type
               </label>
               <select
                 id='type'
@@ -61,23 +61,23 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value='Full-Time'>Full-Time</option>
-                <option value='Part-Time'>Part-Time</option>
-                <option value='Remote'>Remote</option>
-                <option value='Internship'>Internship</option>
+                <option value='Full-Time'>One-Time</option>
+                {/* <option value='Part-Time'>Part-Time</option> */}
+                <option value='Remote'>Routine</option>
+                <option value='Internship'>Emergency</option>
               </select>
             </div>
 
             <div className='mb-4'>
               <label className='block text-gray-700 font-bold mb-2'>
-                Job Listing Name
+                Center
               </label>
               <input
                 type='text'
                 id='title'
                 name='title'
                 className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='eg. Beautiful Apartment In Miami'
+                placeholder='Decide on a center'
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -95,7 +95,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 name='description'
                 className='border rounded w-full py-2 px-3'
                 rows='4'
-                placeholder='Add any job duties, expectations, requirements, etc'
+                placeholder='Add any additional information'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
@@ -106,7 +106,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 htmlFor='type'
                 className='block text-gray-700 font-bold mb-2'
               >
-                Salary
+              Centers
               </label>
               <select
                 id='salary'
@@ -139,16 +139,16 @@ const AddJobPage = ({ addJobSubmit }) => {
                 id='location'
                 name='location'
                 className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='Company Location'
+                placeholder='Personal Location'
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 
-            <h3 className='text-2xl mb-5'>Company Info</h3>
+            {/* <h3 className='text-2xl mb-5'>Company Info</h3> */}
 
-            <div className='mb-4'>
+            {/* <div className='mb-4'>
               <label
                 htmlFor='company'
                 className='block text-gray-700 font-bold mb-2'
@@ -164,8 +164,8 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
               />
-            </div>
-
+            </div> */}
+{/* 
             <div className='mb-4'>
               <label
                 htmlFor='company_description'
@@ -182,9 +182,9 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={companyDescription}
                 onChange={(e) => setCompanyDescription(e.target.value)}
               ></textarea>
-            </div>
+            </div> */}
 
-            <div className='mb-4'>
+            {/* <div className='mb-4'>
               <label
                 htmlFor='contact_email'
                 className='block text-gray-700 font-bold mb-2'
@@ -196,12 +196,12 @@ const AddJobPage = ({ addJobSubmit }) => {
                 id='contact_email'
                 name='contact_email'
                 className='border rounded w-full py-2 px-3'
-                placeholder='Email address for applicants'
+                placeholder='Your Email address for applicants'
                 required
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
               />
-            </div>
+            </div> */}
             <div className='mb-4'>
               <label
                 htmlFor='contact_phone'
@@ -214,7 +214,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 id='contact_phone'
                 name='contact_phone'
                 className='border rounded w-full py-2 px-3'
-                placeholder='Optional phone for applicants'
+                placeholder='Optional phone'
                 value={contactPhone}
                 onChange={(e) => setContactPhone(e.target.value)}
               />
@@ -225,7 +225,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 className='bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
                 type='submit'
               >
-                Add Job
+                Book Appointment
               </button>
             </div>
           </form>

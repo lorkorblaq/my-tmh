@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/tmh.png';
 
 const Navbar = () => {
   const linkClass = ({ isActive }) =>
@@ -15,7 +15,7 @@ const Navbar = () => {
             <NavLink className='flex flex-shrink-0 items-center mr-4' to='/'>
               <img className='h-10 w-auto' src={logo} alt='React Jobs' />
               <span className='hidden md:block text-white text-2xl font-bold ml-2'>
-                React Jobs
+                The Missionary Healthcare
               </span>
             </NavLink>
             <div className='md:ml-auto'>
@@ -24,10 +24,10 @@ const Navbar = () => {
                   Home
                 </NavLink>
                 <NavLink to='/jobs' className={linkClass}>
-                  Jobs
+                  Providers
                 </NavLink>
                 <NavLink to='/add-job' className={linkClass}>
-                  Add Job
+                  Centers
                 </NavLink>
               </div>
             </div>
