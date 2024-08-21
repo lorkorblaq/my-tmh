@@ -1,6 +1,6 @@
 import motor.motor_asyncio
 from bson import ObjectId
-from models import Users, HMO, Centers, Todo
+from models import Users, HMO, Centers, Tests
 from typing import Optional, List
 
 # Database connection
@@ -11,7 +11,7 @@ database = client.tmh
 users_collection = database.users
 hmo_collection = database.hmo
 centers_collection = database.centers
-todo_collection = database.todo
+tests_collection = database.tests
 
 # Helper function to handle ObjectId conversion
 def str_to_objectid(id: str) -> ObjectId:
@@ -19,6 +19,8 @@ def str_to_objectid(id: str) -> ObjectId:
         return ObjectId(id)
     except Exception as e:
         raise ValueError(f"Invalid ID format: {e}")
+
+
 
 # Users
 async def create_user(user: Users) -> dict:
@@ -44,6 +46,8 @@ async def remove_user(id: str) -> bool:
     result = await users_collection.delete_one({"_id": str_to_objectid(id)})
     return result.deleted_count > 0
 
+
+
 # HMO
 async def create_hmo(hmo: HMO) -> dict:
     hmo_dict = hmo.model_dump()
@@ -67,6 +71,8 @@ async def fetch_hmos() -> List[dict]:
 async def remove_hmo(id: str) -> bool:
     result = await hmo_collection.delete_one({"_id": str_to_objectid(id)})
     return result.deleted_count > 0
+
+
 
 # Centers
 async def create_center(center: Centers) -> dict:
@@ -92,25 +98,29 @@ async def remove_center(id: str) -> bool:
     result = await centers_collection.delete_one({"_id": str_to_objectid(id)})
     return result.deleted_count > 0
 
-# Todos
-async def create_todo(todo: Todo) -> dict:
-    todo_dict = todo.model_dump()
-    result = await todo_collection.insert_one(todo_dict)
-    return await todo_collection.find_one({"_id": result.inserted_id})
 
-async def update_todo(title: str, desc: str) -> Optional[dict]:
-    await todo_collection.update_one({"title": title}, {"$set": {"description": desc}})
-    return await todo_collection.find_one({"title": title})
 
-async def fetch_one_todo(title: str) -> Optional[dict]:
-    return await todo_collection.find_one({"title": title})
+async def create_tests(tests: Tests) -> dict:
+    test_dict = tests.model_dump()
+    result = await tests_collection.insert_one(test_dict)
+    return await tests_collection.find_one({"_id": result.inserted_id})
 
-async def fetch_all_todos() -> List[Todo]:
-    todos = []
-    async for document in todo_collection.find({}):
-        todos.append(Todo(**document))
-    return todos
+async def update_tests(id: str, data: dict) -> Optional[dict]:
+    object_id = str_to_objectid(id)
+    await tests_collection.update_one({"_id": object_id}, {"$set": data})
+    return await tests_collection.find_one({"_id": object_id})  
 
-async def remove_todo(title: str) -> bool:
-    result = await todo_collection.delete_one({"title": title})
+async def fetch_one_tests(id: str) -> Optional[dict]:
+    return await tests_collection.find_one({"_id": str_to_objectid(id)})    
+
+async def fetch_tests() -> List[dict]:
+    tests = []
+    async for document in tests_collection.find({}):
+        tests.append(document)
+    return tests
+
+async def remove_tests(id: str) -> bool:
+    result = await tests_collection.delete_one({"_id": str_to_objectid(id)})
     return result.deleted_count > 0
+
+

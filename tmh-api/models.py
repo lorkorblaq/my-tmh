@@ -4,9 +4,6 @@ from typing import List
 # Constants for field validation
 PHONE_REGEX = r'^\+?[1-9]\d{1,14}$'  # E.164 format
 
-class Todo(BaseModel):
-    title: str = Field(..., min_length=1, max_length=100, strip_whitespace=True)
-    description: str
 
 class Users(BaseModel):
     name: str = Field(..., min_length=1, max_length=50, strip_whitespace=True)
@@ -39,4 +36,16 @@ class Centers(BaseModel):
     def validate_hmo_ids(cls, value):
         if not all(isinstance(item, str) and len(item) == 24 for item in value):
             raise ValueError('Each HMO ID must be a valid 24-character MongoDB ObjectId string')
+        return value
+    
+class Tests(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100, strip_whitespace=True)
+    description: str
+    price: float = Field(..., gt=0)
+    center_id: list[str]  # ID of the center where the test is performed
+
+    @field_validator('center_id')
+    def validate_center_id(cls, value):
+        if not all(isinstance(item, str) and len(item) == 24 for item in value):
+            raise ValueError('Center ID must be a valid 24-character MongoDB ObjectId string')
         return value
