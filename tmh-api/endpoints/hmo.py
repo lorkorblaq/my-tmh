@@ -1,16 +1,26 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Body
 from models import HMO
 from database import *
+from typing import List, Union
 
 router = APIRouter()
 
 # HMO Endpoints
-@router.post("/", response_model=HMO)
-async def post_hmo(hmo: HMO):
-    response = await create_hmo(hmo)  # Convert the Pydantic model to a dict
-    if response:
-        return response
-    raise HTTPException(status_code=400, detail="Something went wrong")
+@router.post("/", response_model=List[HMO])
+async def post_hmo(hmo: Union[HMO, List[HMO]] = Body(...)):
+    if isinstance(hmo, HMO):
+        hmo = [hmo]  # Convert to a list with a single item if it's not already a list
+
+    response = []
+    for item in hmo:
+        created_hmo = await create_hmo(item)
+        if created_hmo:
+            response.append(created_hmo)
+        else:
+            raise HTTPException(status_code=400, detail="Something went wrong with one of the HMOs")
+
+    return response
+
 
 @router.get("/{id}/", response_model=HMO)
 async def get_hmo(id: str):
