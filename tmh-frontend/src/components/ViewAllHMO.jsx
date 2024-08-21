@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 
-const ViewAllJobs = () => {
+const ViewAllHMO = () => {
   return (
     <section className='m-auto max-w-lg my-10 px-6'>
       <Link
-        to='/jobs'
+        to='/hmos'
         className='block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700'
       >
-        View All Tests
+        View All HMO
       </Link>
     </section>
   );
 };
-export default ViewAllJobs;
+export default ViewAllHMO;

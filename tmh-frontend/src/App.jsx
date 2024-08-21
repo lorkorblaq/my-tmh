@@ -6,41 +6,50 @@ import {
 } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
-import JobsPage from './pages/JobsPage';
+
+import TestPage, { testLoader } from './pages/TestPage';
+import TestsPage from './pages/TestsPage';
+
+import CenterPage, { centerLoader } from './pages/CenterPage';
+import CentersPage from './pages/CentersPage';
+
+import HMOPage, { HMOLoader } from './pages/HMOPage';
+import HMOsPage from './pages/HMOsPage';
+
 import NotFoundPage from './pages/NotFoundPage';
-import JobPage, { jobLoader } from './pages/JobPage';
-import AddJobPage from './pages/AddJobPage';
-import EditJobPage from './pages/EditJobPage';
+
+import AppointementPage from './pages/AppointementPage';
+import EditUser from './pages/EditUser';
 
 const App = () => {
   // Add New Job
-  const addJob = async (newJob) => {
-    const res = await fetch('/api/jobs', {
+  const addAppointment = async (newAppointment) => {
+    const res = await fetch('/api/appointment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newJob),
+      body: JSON.stringify(newAppointment),
     });
     return;
   };
 
   // Delete Job
   const deleteJob = async (id) => {
-    const res = await fetch(`/api/jobs/${id}`, {
+    const res = await fetch(`/api/test/${id}`, {
       method: 'DELETE',
     });
     return;
   };
 
   // Update Job
-  const updateJob = async (job) => {
-    const res = await fetch(`/api/jobs/${job.id}`, {
+  const updateJob = async (test) => {
+    const res = await fetch(`/api/test/${test.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(job),
+      body: JSON.stringify(test),
     });
     return;
   };
@@ -49,17 +58,30 @@ const App = () => {
     createRoutesFromElements(
       <Route path='/' element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path='/jobs' element={<JobsPage />} />
-        <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
+        <Route path='/tests' element={<TestsPage />} />
+        <Route path='/centers' element={<CentersPage />} />
+        <Route path='/hmos' element={<HMOsPage />} />
+
+        <Route path='/appointments' element={<AppointementPage addAppointmentSubmit={addAppointment} />} />
         <Route
           path='/edit-job/:id'
-          element={<EditJobPage updateJobSubmit={updateJob} />}
-          loader={jobLoader}
+          element={<EditUser updateJobSubmit={updateJob} />}
+          loader={testLoader}
         />
         <Route
-          path='/jobs/:id'
-          element={<JobPage deleteJob={deleteJob} />}
-          loader={jobLoader}
+          path='/test/:id'
+          element={<TestPage deleteJob={deleteJob} />}
+          loader={testLoader}
+        />
+        <Route
+          path='/center/:id'
+          element={<CenterPage deleteJob={deleteJob} />}
+          loader={centerLoader}
+        />
+        <Route
+          path='/center/:id'
+          element={<HMOPage deleteJob={deleteJob} />}
+          loader={HMOLoader}
         />
         <Route path='*' element={<NotFoundPage />} />
       </Route>

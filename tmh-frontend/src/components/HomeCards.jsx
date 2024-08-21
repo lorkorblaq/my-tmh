@@ -12,7 +12,7 @@ const HomeCards = () => {
               Browse our Centers and get your care today
             </p>
             <Link
-              to='/add-job'
+              to='/centers'
               className='inline-block bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600'
             >
               Browse centers
@@ -24,7 +24,7 @@ const HomeCards = () => {
               List of tests provides by our centers
             </p>
             <Link
-              to='/jobs'
+              to='/tests'
               className='inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700'
             >
               Browse Tests

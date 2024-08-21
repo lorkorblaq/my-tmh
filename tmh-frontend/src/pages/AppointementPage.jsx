@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const AddJobPage = ({ addJobSubmit }) => {
+const AppointementPage = ({ addAppointmentSubmit }) => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('Full-Time');
   const [location, setLocation] = useState('');
@@ -18,7 +18,7 @@ const AddJobPage = ({ addJobSubmit }) => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    const newJob = {
+    const newAppointment = {
       title,
       type,
       location,
@@ -32,11 +32,11 @@ const AddJobPage = ({ addJobSubmit }) => {
       },
     };
 
-    addJobSubmit(newJob);
+    addAppointmentSubmit(newAppointment);
 
     toast.success('Job Added Successfully');
 
-    return navigate('/jobs');
+    return navigate('/centers');
   };
 
   return (
@@ -234,4 +234,4 @@ const AddJobPage = ({ addJobSubmit }) => {
     </section>
   );
 };
-export default AddJobPage;
+export default AppointementPage;

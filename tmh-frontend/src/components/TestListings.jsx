@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
-import JobListing from './JobListing';
+import TestListing from './TestListing';
 import Spinner from './Spinner';
 
-const JobListings = ({ isHome = false }) => {
-  const [jobs, setJobs] = useState([]);
+const TestListings = ({ isHome = false }) => {
+  const [tests, setTests] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      const apiUrl = isHome ? '/api/jobs?_limit=3' : '/api/jobs';
+    const fetchTests = async () => {
+      const apiUrl = isHome ? '/api/tests?_limit=3' : '/api/tests';
       try {
         const res = await fetch(apiUrl);
         const data = await res.json();
-        setJobs(data);
+        setTests(data);
       } catch (error) {
         console.log('Error fetching data', error);
       } finally {
@@ -20,7 +20,7 @@ const JobListings = ({ isHome = false }) => {
       }
     };
 
-    fetchJobs();
+    fetchTests();
   }, []);
 
   return (
@@ -34,8 +34,8 @@ const JobListings = ({ isHome = false }) => {
           <Spinner loading={loading} />
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-            {jobs.map((job) => (
-              <JobListing key={job.id} job={job} />
+            {tests.map((test) => (
+              <TestListing key={test.id} test={test} />
             ))}
           </div>
         )}
@@ -43,4 +43,4 @@ const JobListings = ({ isHome = false }) => {
     </section>
   );
 };
-export default JobListings;
+export default TestListings;
